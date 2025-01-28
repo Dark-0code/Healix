@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-green-100 flex">
+
+    <!-- Sidebar -->
+    <aside class="bg-green-700 text-white w-64 h-screen fixed flex flex-col p-6 shadow-lg">
+        <h1 class="text-2xl font-bold mb-8">HEALIX</h1>
+        <nav class="flex-1">
+            <ul class="space-y-4">
+                <li>
+                    <a href="#" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-green-600">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="registration.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-green-600">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Registration</span>
+                    </a>
+                </li>
+                <li class="p-4 hover:bg-green-600">
+                    <a href="patient.html" class="flex items-center">
+                        <i class="fa-solid fa-users mr-2"></i> Patients
+                    </a>
+                </li>
+                <li class="p-4 hover:bg-green-600">
+                    <a href="#" class="flex items-center">
+                        <i class="fa-solid fa-user-doctor mr-2"></i> Doctors
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
+        <!-- Logout Button -->
+        <button 
+            class="mt-auto flex items-center space-x-2 px-4 py-2 bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 flex-1 p-8 overflow-y-auto">
+        <h2 class="text-3xl font-bold text-green-700 mb-6">Dashboard</h2>
+
+        <!-- Key Metrics Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold text-green-600">Total Population</h3>
+                <p class="text-2xl font-semibold text-green-700 mt-4">1,245,678</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold text-green-600">High-Risk Individuals</h3>
+                <p class="text-2xl font-semibold text-green-700 mt-4">58,234</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold text-green-600">Scheduled Appointments</h3>
+                <p class="text-2xl font-semibold text-green-700 mt-4">12,345</p>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-8 max-w-3xl mx-auto">
+            <h3 class="text-lg font-bold text-green-600 mb-3">Health Risk Distribution</h3>
+            <canvas id="healthRiskChart" class="mt-2"></canvas>
+        </div>
+
+        <!-- Recent Activities Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-green-600 mb-4">Recent Activities</h3>
+            <ul class="divide-y divide-green-100">
+                <li class="py-4 flex justify-between items-center">
+                    <span class="text-green-600 font-medium">New appointment scheduled for John Doe</span>
+                    <span class="text-sm text-green-500">2 hours ago</span>
+                </li>
+                <li class="py-4 flex justify-between items-center">
+                    <span class="text-green-600 font-medium">Health risk updated for Jane Smith</span>
+                    <span class="text-sm text-green-500">5 hours ago</span>
+                </li>
+                <li class="py-4 flex justify-between items-center">
+                    <span class="text-green-600 font-medium">Monthly report generated</span>
+                    <span class="text-sm text-green-500">1 day ago</span>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        // Initialize the chart
+        const ctx = document.getElementById('healthRiskChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Low Risk', 'Moderate Risk', 'High Risk'],
+                datasets: [{
+                    label: 'Health Risk Distribution',
+                    data: [60, 25, 15],
+                    backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

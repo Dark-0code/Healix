@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healix - Patients</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="flex h-screen bg-gray-100">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-green-700 text-white fixed h-screen flex flex-col p-6">
+    <h1 class="text-2xl font-bold mb-8">HEALIX</h1>
+    <nav class="flex-grow">
+      <ul class="space-y-4">
+        <li>
+          <a href="Dashboard.html" class="flex items-center px-4 py-2 rounded-lg hover:bg-green-600">
+            <i class="fa-solid fa-gauge mr-2"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="registration.html" class="flex items-center px-4 py-2 rounded-lg hover:bg-green-600">
+            <i class="fa-solid fa-pen-to-square mr-2"></i>
+            <span>Registration</span>
+          </a>
+        </li>
+        <li>
+          <a href="patient.html" class="flex items-center px-4 py-2 bg-green-600 rounded-lg">
+            <i class="fa-solid fa-users mr-2"></i>
+            <span>Patients</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-4 py-2 rounded-lg hover:bg-green-600">
+            <i class="fa-solid fa-user-doctor mr-2"></i>
+            <span>Doctors</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <button class="mt-auto flex items-center px-4 py-2 bg-green-500 rounded-lg hover:bg-green-600">
+      <i class="fas fa-sign-out-alt mr-2"></i>
+      <span>Logout</span>
+    </button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-64 flex-1 p-8">
+
+   
+
+    <!-- Title -->
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold text-green-700">Patients</h2>
+      <p class="text-sm text-gray-500">Dashboard / Patients</p>
+    </div>
+
+    <!-- Patients List -->
+    <div id="patientsList" class="border border-gray-300 rounded-lg shadow-lg bg-white">
+      <ul>
+        <!-- Add New Patient Button -->
+        <li class="flex justify-between items-center p-4 text-green-700 font-bold cursor-pointer hover:bg-green-100"
+          onclick="showModal()">
+          Add new patient's file <i class="fa-solid fa-plus text-black"></i>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-lg font-bold mb-4">Add New Patient</h2>
+        <form id="patientForm">
+          <div class="mb-4">
+            <label class="block text-sm font-bold mb-2">Full Name</label>
+            <input type="text" id="name" class="w-full p-2 border rounded-md" placeholder="Enter full name" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-bold mb-2">Age</label>
+            <input type="number" id="age" class="w-full p-2 border rounded-md" placeholder="Enter age" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-bold mb-2">Medical Condition</label>
+            <textarea id="condition" class="w-full p-2 border rounded-md" placeholder="Enter medical condition"
+              required></textarea>
+          </div>
+          <div class="flex justify-end space-x-4">
+            <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const modal = document.getElementById("modal");
+    const patientsList = document.getElementById("patientsList").querySelector("ul");
+
+    function showModal() {
+      modal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+    }
+
+    // Handle form submission
+    document.getElementById("patientForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const condition = document.getElementById("condition").value;
+
+      // Create a new list item for the patient
+      const newPatient = document.createElement("li");
+      newPatient.className =
+        "flex justify-between items-center p-4 text-gray-700 font-bold cursor-pointer hover:bg-green-100";
+      newPatient.innerHTML = `
+        ${patientsList.children.length}. ${name} (Age: ${age}, Condition: ${condition}) 
+        <i class="fa-solid fa-file-lines text-black"></i>
+      `;
+
+      // Append the new patient to the list
+      patientsList.insertBefore(newPatient, patientsList.lastElementChild);
+
+      // Clear the form and close the modal
+      document.getElementById("patientForm").reset();
+      closeModal();
+    });
+  </script>
+
+</body>
+
+</html>
